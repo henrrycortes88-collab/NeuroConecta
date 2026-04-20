@@ -104,57 +104,9 @@ neuroauds/
 │           ├── DoctorCitas.jsx      ← Aceptar/rechazar citas
 │           └── DoctorReportes.jsx   ← Comparativa 3 pacientes
 └── package.json
-```
 
----
 
-## 👥 Roles y rutas
 
-| Rol       | Ruta         | Acceso                                      |
-|-----------|-------------|---------------------------------------------|
-| Paciente  | `/paciente`  | Comunicación, ejercicios, juegos, estado    |
-| Cuidador  | `/cuidador`  | Comunicación, rutinas, reportes, alertas, citas |
-| Médico    | `/medico`    | Pacientes, detalle clínico, citas, reportes |
 
----
-
-## 📦 Dependencias principales
-
-| Paquete           | Versión  | Uso                          |
-|-------------------|----------|------------------------------|
-| react             | ^18.2.0  | UI framework                 |
-| react-router-dom  | ^6.22.0  | Navegación por rutas         |
-| firebase          | ^10.8.0  | Auth Google + Firestore DB   |
-| chart.js          | ^4.4.1   | Motor de gráficas            |
-| react-chartjs-2   | ^5.2.0   | Wrapper React para Chart.js  |
-
----
-
-## 🚢 Deploy en producción (Netlify / Vercel)
-
-```bash
-# Build
-npm run build
-
-# Netlify: sube la carpeta /build
-# Vercel: conecta el repo GitHub y auto-detecta React
-```
-
-> ⚠️ En Netlify agrega un archivo `public/_redirects`:
-> ```
-> /*  /index.html  200
-> ```
-
----
-
-## 🔮 Próximas funciones sugeridas
-
-- [ ] Notificaciones push (Firebase Cloud Messaging)
-- [ ] PWA / instalable en móvil
-- [ ] Modo offline con Service Worker
-- [ ] Subida de fotos de alimentos (Firebase Storage)
-- [ ] Video-consulta integrada (WebRTC)
-- [ ] Exportar reportes en PDF
-- [ ] Notificaciones SMS (Twilio)
 
 
