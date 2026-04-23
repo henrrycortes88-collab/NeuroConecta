@@ -97,16 +97,14 @@ neuroauds/
 │       │   ├── CaregiverReportes.jsx
 │       │   ├── CaregiverAlertas.jsx ← Dismissible alerts
 │       │   └── CaregiverCitas.jsx
-│       └── doctor/
-│           ├── DoctorApp.jsx
-│           ├── DoctorPacientes.jsx  ← Lista con score de salud
-│           ├── DoctorDetalle.jsx    ← 7 tabs clínicos con gráficas
-│           ├── DoctorCitas.jsx      ← Aceptar/rechazar citas
-│           └── DoctorReportes.jsx   ← Comparativa 3 pacientes
+       └── doctor/
+           ├── DoctorApp.jsx
+           ├── DoctorPacientes.jsx  ← Lista con score de salud
+           ├── DoctorDetalle.jsx    ← 7 tabs clínicos con gráficas
+           ├── DoctorCitas.jsx      ← Aceptar/rechazar citas
+           └── DoctorReportes.jsx   ← Comparativa 3 pacientes
 └── package.json
 ```
-
-
 
 ## 📦 Dependencias principales
 
@@ -125,7 +123,4 @@ neuroauds/
 ```bash
 # Build
 npm run build
-
-
-
-
+```
