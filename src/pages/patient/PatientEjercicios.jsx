@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -30,35 +30,7 @@ export default function PatientEjercicios() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  useEffect(() => {
-    let timer = null;
-    if (timerStarted && !timerPaused && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
-      }, 1000);
-    } else if (timerStarted && !timerPaused && timeLeft === 0 && !isCompleted) {
-      finishExercise();
-    }
-    return () => clearInterval(timer);
-  }, [timerStarted, timerPaused, timeLeft, isCompleted]);
-
-  const handleSelect = (label) => {
-    setActive(label);
-    setTimerStarted(false);
-    setTimerPaused(false);
-    setIsCompleted(false);
-    setTimeLeft(0);
-  };
-
-  const startExercise = (durText) => {
-    const min = parseInt(durText.split(' ')[0]);
-    setTimeLeft(min * 60);
-    setTimerStarted(true);
-    setTimerPaused(false);
-    setIsCompleted(false);
-  };
-
-  const finishExercise = async () => {
+  const finishExercise = useCallback(async () => {
     setTimerStarted(false);
     setTimerPaused(false);
     setIsCompleted(true);
@@ -76,6 +48,34 @@ export default function PatientEjercicios() {
     } catch (e) {
       console.error('Error guardando actividad:', e);
     }
+  }, [active, user]);
+
+  useEffect(() => {
+    let timer = null;
+    if (timerStarted && !timerPaused && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    } else if (timerStarted && !timerPaused && timeLeft === 0 && !isCompleted) {
+      finishExercise();
+    }
+    return () => clearInterval(timer);
+  }, [timerStarted, timerPaused, timeLeft, isCompleted, finishExercise]);
+
+  const handleSelect = (label) => {
+    setActive(label);
+    setTimerStarted(false);
+    setTimerPaused(false);
+    setIsCompleted(false);
+    setTimeLeft(0);
+  };
+
+  const startExercise = (durText) => {
+    const min = parseInt(durText.split(' ')[0]);
+    setTimeLeft(min * 60);
+    setTimerStarted(true);
+    setTimerPaused(false);
+    setIsCompleted(false);
   };
 
   const formatTime = (seconds) => {

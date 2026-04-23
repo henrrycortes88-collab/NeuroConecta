@@ -4,7 +4,7 @@ import { db } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
 
 export default function CaregiverHome() {
-  const { user } = useAuth();
+  useAuth();
   const [messages, setMessages] = useState([]);
   const [states, setStates] = useState([]);
 
@@ -19,7 +19,6 @@ export default function CaregiverHome() {
   }, []);
 
   const latestState = states[0] || {};
-  const currentMood = latestState.mood || 'Normal';
   const currentSleep = latestState.sleepHours || 7.2;
 
   return (
