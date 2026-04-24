@@ -18,9 +18,9 @@ const COLORS = [
 ];
 const PALABRAS_DATA = [
   { word: 'Gato', emoji: '🐱' }, { word: 'Casa', emoji: '🏠' }, { word: 'Sol', emoji: '☀️' },
-  { word: 'Coche', emoji: '🚗' }, { word: 'Libro', emoji: '📖' }, { word: 'Agua', emoji: '💧' },
+  { word: 'Coche', emoji: '🚗' }, { word: 'Libro', emoji: '📖' }, { word: 'Agua', emoji: '🥛' },
   { word: 'Luna', emoji: '🌙' }, { word: 'Flor', emoji: '🌸' }, { word: 'Reloj', emoji: '⌚' },
-  { word: 'Avión', emoji: '✈️' }, { word: 'Silla', emoji: '🪑' }, { word: 'Mesa', emoji: '🪚' }
+  { word: 'Avión', emoji: '✈️' }, { word: 'Silla', emoji: '🪑' }, { word: 'Pelota', emoji: '⚽' }
 ];
 
 export default function PatientJuegos() {
@@ -41,6 +41,7 @@ export default function PatientJuegos() {
   const [expectedNum, setExpectedNum] = useState(1);
   const [targetWord, setTargetWord] = useState(null);
   const [wordOptions, setWordOptions] = useState([]);
+  const [availableWords, setAvailableWords] = useState([]);
 
   const saveScoreToFirebase = async (gameName, points) => {
     try {
@@ -167,13 +168,14 @@ export default function PatientJuegos() {
     setLevel(lvl);
     setScore(currentScore);
     setIsCompleted(false);
-    nextPalabraRound();
-  };
-
-  const nextPalabraRound = () => {
+    
     const shuffled = [...PALABRAS_DATA].sort(() => Math.random() - 0.5);
-    setTargetWord(shuffled[0]);
-    setWordOptions(shuffled.slice(0, 3).sort(() => Math.random() - 0.5));
+    setAvailableWords(shuffled);
+    
+    const target = shuffled[0];
+    setTargetWord(target);
+    const otherOptions = shuffled.filter(w => w.word !== target.word).sort(() => Math.random() - 0.5).slice(0, 2);
+    setWordOptions([target, ...otherOptions].sort(() => Math.random() - 0.5));
   };
 
   const handlePalabraClick = (w) => {
@@ -184,8 +186,12 @@ export default function PatientJuegos() {
         setIsCompleted(true);
         saveScoreToFirebase('Palabras', newScore);
       } else {
-        setLevel(l => l + 1);
-        nextPalabraRound();
+        const nextLevel = level + 1;
+        setLevel(nextLevel);
+        const nextTarget = availableWords[nextLevel - 1];
+        setTargetWord(nextTarget);
+        const otherOptions = availableWords.filter(x => x.word !== nextTarget.word).sort(() => Math.random() - 0.5).slice(0, 2);
+        setWordOptions([nextTarget, ...otherOptions].sort(() => Math.random() - 0.5));
       }
     } else {
       alert('¡Intenta de nuevo!');
