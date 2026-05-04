@@ -55,16 +55,26 @@ export default function LoginPage() {
       background: 'radial-gradient(ellipse at 30% 20%,rgba(124,111,224,.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(45,207,179,.1) 0%,transparent 60%),var(--bg)'
     }}>
       {/* Logo */}
-      <div style={{ textAlign: 'center' }}>
-        <div className="emoji-anim" style={{ fontSize: 60, marginBottom: 12 }}>🧠</div>
-        <div style={{
-          fontFamily: "'Poppins',sans-serif", fontWeight: 800, fontSize: 38,
-          background: 'linear-gradient(90deg,#7C6FE0,#2DCFB3)',
-          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'
-        }}>NeuroConecta</div>
-        <p style={{ color: 'var(--muted)', fontSize: 13, marginTop: 6 }}>
-          Plataforma integral de atención neurológica
-        </p>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+          <div style={{
+            fontFamily: "'Poppins',sans-serif", fontWeight: 900, fontSize: 72,
+            color: '#0b3273', letterSpacing: '-1px', lineHeight: 1
+          }}>Auds</div>
+          <div className="emoji-anim" style={{ marginLeft: 10, display: 'flex', alignItems: 'center' }}>
+            <AppleLogo />
+          </div>
+        </div>
+        <div style={{ 
+          fontFamily: "'Poppins',sans-serif", fontWeight: 800, fontSize: 16, marginTop: 16,
+          display: 'flex', justifyContent: 'center', gap: '8px', letterSpacing: '1px'
+        }}>
+          <span style={{ color: '#00b894' }}>JUEGA</span>
+          <span style={{ color: '#0b3273' }}>•</span>
+          <span style={{ color: '#ff7675' }}>COMUNICA</span>
+          <span style={{ color: '#0b3273' }}>•</span>
+          <span style={{ color: '#fdcb6e' }}>APRENDE</span>
+        </div>
       </div>
 
       {/* Role selector */}
@@ -128,7 +138,7 @@ export default function LoginPage() {
       </div>
 
       <p style={{ color: 'var(--muted)', fontSize: 11, textAlign: 'center' }}>
-        NeuroConecta v1.0 · Datos cifrados y seguros 🔒
+        Auds v1.0 · Datos cifrados y seguros 🔒
       </p>
     </div>
   );
@@ -143,4 +153,37 @@ function GoogleIcon() {
       <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z" />
     </svg>
   )
+}
+
+function AppleLogo() {
+  return (
+    <svg width="85" height="85" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
+      {/* Leaves */}
+      <path d="M 49 26 C 35 26, 30 8, 40 4 C 45 4, 49 15, 49 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round"/>
+      <path d="M 51 26 C 65 26, 70 8, 60 4 C 55 4, 51 15, 51 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round"/>
+      
+      {/* Apple Body */}
+      <path d="M 50 25 C 30 15, 15 30, 15 55 C 15 85, 35 90, 50 90 C 65 90, 85 85, 85 55 C 85 30, 70 15, 50 25 Z" fill="#ff5c5c" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round" />
+      
+      {/* Eyes */}
+      <ellipse cx="35" cy="53" rx="4" ry="6" fill="#0b3273" />
+      <ellipse cx="65" cy="53" rx="4" ry="6" fill="#0b3273" />
+      
+      {/* Blush */}
+      <circle cx="25" cy="62" r="5" fill="#ff4757" opacity="0.8" />
+      <circle cx="75" cy="62" r="5" fill="#ff4757" opacity="0.8" />
+      
+      {/* Happy Mouth */}
+      <path d="M 42 58 C 42 74, 58 74, 58 58 Z" fill="#0b3273" />
+      <path d="M 45 63 C 45 69, 55 69, 55 63 Z" fill="#ff7675" />
+
+      {/* Speech Bubble */}
+      <g transform="translate(65, 0)">
+        <path d="M 5 30 C -8 30, -8 5, 15 5 C 38 5, 38 30, 25 30 L 18 40 L 15 30 Z" fill="white" stroke="#0b3273" strokeWidth="3" strokeLinejoin="round" />
+        <circle cx="8" cy="17" r="2.5" fill="#00b894" />
+        <circle cx="15" cy="17" r="2.5" fill="#00b894" />
+        <circle cx="22" cy="17" r="2.5" fill="#00b894" />
+      </g>
+    </svg>
+  );
 }
