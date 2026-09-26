@@ -25,6 +25,18 @@ import {
 } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../firebase';
 
+export const ROUTES = {
+  patient:    '/paciente',
+  caregiver:  '/cuidador',
+  doctor:     '/medico',
+  teacher:    '/docente-v1',
+  family:     '/familia',
+  admin:      '/admin',
+  directivo:  '/directivo',   // ← nuevo
+  docente:    '/docente',     // ← nuevo (reemplaza teacher si se desea)
+  admindark:  '/admindark',   // ← nuevo admin oscuro
+};
+
 // Creamos el contexto con valor inicial null
 const AuthContext = createContext(null);
 

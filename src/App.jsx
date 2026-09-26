@@ -11,6 +11,9 @@ import LoginPage    from './pages/LoginPage';
 import PatientApp   from './pages/patient/PatientApp';
 import CaregiverApp from './pages/caregiver/CaregiverApp';
 import DoctorApp    from './pages/doctor/DoctorApp';
+import DirectivoApp  from './pages/directivo/DirectivoApp';
+import DocenteApp    from './pages/docente/DocenteApp';
+import AdminDarkApp  from './pages/admindark/AdminDarkApp';
 
 // Redirige al usuario a la ruta de su rol o al login si no está autenticado
 function RoleRouter() {
@@ -35,6 +38,9 @@ function RoleRouter() {
   if (role === 'patient')   return <Navigate to="/paciente"  replace />;
   if (role === 'caregiver') return <Navigate to="/cuidador"  replace />;
   if (role === 'doctor')    return <Navigate to="/medico"    replace />;
+  if (role === 'directivo') return <Navigate to="/directivo" replace />;
+  if (role === 'docente')   return <Navigate to="/docente"   replace />;
+  if (role === 'admindark') return <Navigate to="/admindark" replace />;
 
   return <Navigate to="/login" replace />; // Rol desconocido → login
 }
@@ -50,6 +56,9 @@ export default function App() {
             <Route path="/paciente/*" element={<PatientApp />}    /> {/* App del paciente */}
             <Route path="/cuidador/*" element={<CaregiverApp />}  /> {/* App del cuidador */}
             <Route path="/medico/*"   element={<DoctorApp />}     /> {/* App del doctor */}
+            <Route path="/directivo/*"  element={<DirectivoApp />}  />
+            <Route path="/docente/*"    element={<DocenteApp />}    />
+            <Route path="/admindark/*"  element={<AdminDarkApp />}  />
             <Route path="*"           element={<RoleRouter />}    /> {/* Ruta wildcard */}
           </Routes>
         </BrowserRouter>

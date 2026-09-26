@@ -19,12 +19,22 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ROLES = [
-  { id: 'patient', emoji: '😊', label: 'Soy Paciente', desc: 'Comunicación, juegos y ejercicios', badge: 'badge-p' },
-  { id: 'caregiver', emoji: '🤝', label: 'Soy Cuidador', desc: 'Rutinas, alertas y comunicación', badge: 'badge-c' },
-  { id: 'doctor', emoji: '👨‍⚕️', label: 'Soy Médico', desc: 'Panel clínico y reportes', badge: 'badge-m' },
+  { id: 'patient',   emoji: '😊', label: 'Soy Paciente',      desc: 'Comunicación, juegos y ejercicios', color: 'var(--purple)', bg: 'rgba(124,111,224,.2)' },
+  { id: 'caregiver', emoji: '🤝', label: 'Soy Cuidador',      desc: 'Rutinas, alertas y comunicación',   color: 'var(--teal)',   bg: 'rgba(45,207,179,.2)' },
+  { id: 'doctor',    emoji: '👨‍⚕️', label: 'Soy Médico',        desc: 'Panel clínico y reportes',          color: 'var(--blue)',   bg: 'rgba(74,159,255,.2)' },
+  { id: 'docente',   emoji: '👩‍🏫', label: 'Soy Docente',       desc: 'Gestión de alumnos y actividades',   color: '#2EA043',       bg: 'rgba(46,160,67,.2)' },
+  { id: 'directivo', emoji: '🏢', label: 'Soy Directivo',     desc: 'Estadísticas globales y personal',  color: '#8B5CF6',       bg: 'rgba(139,92,246,.2)' },
+  { id: 'admindark', emoji: '🛡️', label: 'Soy Administrador', desc: 'Panel del sistema y logs',          color: '#F85149',       bg: 'rgba(248,81,73,.2)' },
 ];
 
-const ROUTE = { patient: '/paciente', caregiver: '/cuidador', doctor: '/medico' };
+const ROUTE = {
+  patient: '/paciente',
+  caregiver: '/cuidador',
+  doctor: '/medico',
+  docente: '/docente',
+  directivo: '/directivo',
+  admindark: '/admindark',
+};
 
 export default function LoginPage() {
   const { loginWithGoogle } = useAuth();
@@ -65,7 +75,7 @@ export default function LoginPage() {
             <AppleLogo />
           </div>
         </div>
-        <div style={{ 
+        <div style={{
           fontFamily: "'Poppins',sans-serif", fontWeight: 800, fontSize: 16, marginTop: 16,
           display: 'flex', justifyContent: 'center', gap: '8px', letterSpacing: '1px'
         }}>
@@ -98,8 +108,8 @@ export default function LoginPage() {
             }}
           >
             <div className="avatar" style={{
-              background: r.id === 'patient' ? 'rgba(124,111,224,.2)' : r.id === 'caregiver' ? 'rgba(45,207,179,.2)' : 'rgba(74,159,255,.2)',
-              color: r.id === 'patient' ? 'var(--purple)' : r.id === 'caregiver' ? 'var(--teal)' : 'var(--blue)',
+              background: r.bg,
+              color: r.color,
               fontSize: 22
             }}>{r.emoji}</div>
             <div>
@@ -159,20 +169,20 @@ function AppleLogo() {
   return (
     <svg width="85" height="85" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
       {/* Leaves */}
-      <path d="M 49 26 C 35 26, 30 8, 40 4 C 45 4, 49 15, 49 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round"/>
-      <path d="M 51 26 C 65 26, 70 8, 60 4 C 55 4, 51 15, 51 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round"/>
-      
+      <path d="M 49 26 C 35 26, 30 8, 40 4 C 45 4, 49 15, 49 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round" />
+      <path d="M 51 26 C 65 26, 70 8, 60 4 C 55 4, 51 15, 51 26 Z" fill="#00b894" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round" />
+
       {/* Apple Body */}
       <path d="M 50 25 C 30 15, 15 30, 15 55 C 15 85, 35 90, 50 90 C 65 90, 85 85, 85 55 C 85 30, 70 15, 50 25 Z" fill="#ff5c5c" stroke="#0b3273" strokeWidth="4" strokeLinejoin="round" />
-      
+
       {/* Eyes */}
       <ellipse cx="35" cy="53" rx="4" ry="6" fill="#0b3273" />
       <ellipse cx="65" cy="53" rx="4" ry="6" fill="#0b3273" />
-      
+
       {/* Blush */}
       <circle cx="25" cy="62" r="5" fill="#ff4757" opacity="0.8" />
       <circle cx="75" cy="62" r="5" fill="#ff4757" opacity="0.8" />
-      
+
       {/* Happy Mouth */}
       <path d="M 42 58 C 42 74, 58 74, 58 58 Z" fill="#0b3273" />
       <path d="M 45 63 C 45 69, 55 69, 55 63 Z" fill="#ff7675" />
