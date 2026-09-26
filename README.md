@@ -1,4 +1,4 @@
-# 🧠 NeuroAuds — Plataforma Integral de Atención Neurológica
+# 🧠 Auds — Plataforma Integral de Atención Neurológica
 
 Aplicación React con autenticación Google OAuth (Firebase), tres roles y panel clínico completo.
 
@@ -17,55 +17,9 @@ npm install
 
 # 4. Inicia el servidor de desarrollo
 npm start
-```
-
----
-
-## 🔥 Configuración Firebase
-
-### Paso 1 — Crear proyecto
-1. Ve a https://console.firebase.google.com/
-2. Clic en **"Agregar proyecto"** → nombre: `neuroauds`
-3. Desactiva Google Analytics (opcional) → **Crear proyecto**
-
-### Paso 2 — Activar Authentication
-1. En el menú izquierdo → **Authentication** → **Comenzar**
-2. Pestaña **Método de inicio de sesión** → **Google** → Activar
-3. Selecciona correo de soporte → **Guardar**
-
-### Paso 3 — Crear base de datos Firestore
-1. En el menú → **Firestore Database** → **Crear base de datos**
-2. Modo de producción → elige región → **Listo**
-3. Ve a **Reglas** y pega:
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-    match /patients/{patientId}/{document=**} {
-      allow read, write: if request.auth != null;
-    }
-  }
-}
-```
-
-### Paso 4 — Obtener credenciales
-1. ⚙️ **Configuración del proyecto** → **Tus apps** → icono Web `</>`
-2. Registra la app (nombre: `neuroauds-web`)
-3. Copia el objeto `firebaseConfig`
-4. Pégalo en `src/firebase.js` reemplazando los valores de ejemplo
-
-### Paso 5 — Agregar dominio autorizado
-1. Authentication → **Configuración** → **Dominios autorizados**
-2. Agrega `localhost` (ya viene) y tu dominio de producción
-
----
 
 ## 📁 Estructura del proyecto
 
-```
 neuroauds/
 ├── public/
 │   └── index.html
@@ -104,7 +58,7 @@ neuroauds/
            ├── DoctorCitas.jsx      ← Aceptar/rechazar citas
            └── DoctorReportes.jsx   ← Comparativa 3 pacientes
 └── package.json
-```
+
 
 ## 📦 Dependencias principales
 
@@ -116,11 +70,6 @@ neuroauds/
 | chart.js          | ^4.4.1   | Motor de gráficas            |
 | react-chartjs-2   | ^5.2.0   | Wrapper React para Chart.js  |
 
----
-
-## 🚢 Deploy en producción (Netlify / Vercel)
-
-```bash
 # Build
 npm run build
-```
+
