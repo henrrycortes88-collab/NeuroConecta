@@ -37,10 +37,11 @@ export default function PatientComunica() {
       const voices = window.speechSynthesis.getVoices();
       // Buscar voz en español, priorizando es-MX, es-ES, o cualquier es-*
       const esVoice =
-        voices.find(v => v.lang === 'es-MX') ||
-        voices.find(v => v.lang === 'es-ES') ||
-        voices.find(v => v.lang === 'es-419') ||
-        voices.find(v => v.lang.startsWith('es'));
+        voices.find(v => v.lang.toLowerCase().startsWith('es-mx')) ||
+        voices.find(v => v.lang.toLowerCase().startsWith('es-es')) ||
+        voices.find(v => v.lang.toLowerCase().startsWith('es')) ||
+        voices.find(v => v.name.toLowerCase().includes('spanish')) ||
+        voices.find(v => v.name.toLowerCase().includes('español'));
       if (esVoice) spanishVoiceRef.current = esVoice;
     };
 
