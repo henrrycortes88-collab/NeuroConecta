@@ -18,7 +18,7 @@
  * Categorías: Necesidades básicas, Emociones, Acciones, Lugares, Personas, Comida.
  * Total de pictogramas: 15 por combinación de contexto + categoría.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -29,6 +29,27 @@ export default function PatientComunica() {
   const [ctx, setCtx] = useState('general');
   const [cat, setCat] = useState('necesidades');
   const [phrase, setPhrase] = useState([]);
+  const spanishVoiceRef = useRef(null);
+
+  // Precargar voces y seleccionar una en español
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      // Buscar voz en español, priorizando es-MX, es-ES, o cualquier es-*
+      const esVoice =
+        voices.find(v => v.lang === 'es-MX') ||
+        voices.find(v => v.lang === 'es-ES') ||
+        voices.find(v => v.lang === 'es-419') ||
+        voices.find(v => v.lang.startsWith('es'));
+      if (esVoice) spanishVoiceRef.current = esVoice;
+    };
+
+    loadVoices();
+    // Algunos navegadores cargan las voces de forma asíncrona
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }, []);
 
   const addWord = (item) => {
     setPhrase(prev => [...prev, item]);
@@ -44,9 +65,17 @@ export default function PatientComunica() {
     const fullText = phrase.map(i => i.txt).join(' ');
     const emojiString = phrase.filter(i => !i.isTextOnly).map(i => i.emoji).join(' ');
     
-    // Reproducir con síntesis de voz
+    // Cancelar cualquier reproducción previa
+    window.speechSynthesis.cancel();
+
+    // Reproducir con síntesis de voz en español
     const utterance = new SpeechSynthesisUtterance(fullText);
     utterance.lang = 'es-ES';
+    utterance.rate = 0.9;
+    // Forzar voz en español si está disponible
+    if (spanishVoiceRef.current) {
+      utterance.voice = spanishVoiceRef.current;
+    }
     window.speechSynthesis.speak(utterance);
 
     try {
